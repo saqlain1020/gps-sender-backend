@@ -12,11 +12,11 @@ const PORT = process.env.PORT || 8000;
 
 const DB = MONGO_STRING.replace("<password>", MONGO_PASSWORD);
 
-// mongoose
-//   .connect(DB)
-//   .then((con) => {
-//     console.log("connected to mogndodb");
-//   });
+mongoose
+  .connect(DB)
+  .then((con) => {
+    console.log("connected to mogndodb");
+  });
 
 const server = http.createServer(app);
 export const io = new Server(server, {
