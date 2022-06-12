@@ -1,9 +1,9 @@
-import express from "express"
-import rateLimit from "express-rate-limit";//for brute force attack
+import express from "express";
+import rateLimit from "express-rate-limit"; //for brute force attack
 import mongoSanitize from "express-mongo-sanitize"; //for noSql query injections
 import helmet from "helmet"; //Protects from various attacks eg xss etc
-import cors from "cors"
-import morgan from "morgan"
+import cors from "cors";
+import morgan from "morgan";
 import busRouter from "./routes/busRouter";
 
 const limiter = rateLimit({
@@ -26,7 +26,7 @@ app.use(limiter);
 app.use(express.json());
 
 app.use(mongoSanitize());
-app.use(helmet())
+app.use(helmet());
 app.use(morgan("dev"));
 
 //routers
@@ -40,4 +40,9 @@ app.use("/api/v1/bus", busRouter);
 // });
 
 // module.exports = app;
+
+app.use("/ping", (req, res) => {
+  res.status(200).json({ status: true });
+});
+
 export default app;
