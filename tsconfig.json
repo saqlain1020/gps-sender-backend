@@ -8,7 +8,9 @@
         "resolveJsonModule": true,
         "isolatedModules": true,
         "strict": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "outDir": "build",
+        "sourceMap": true
     },
     "typeRoots": [
         "./@types",

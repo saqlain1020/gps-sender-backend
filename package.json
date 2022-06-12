@@ -33,7 +33,8 @@
   },
   "scripts": {
     "dev-start": "nodemon ./server.ts",
-    "start": "ts-node ./server.ts",
+    "start": "node ./build/server.js",
+    "build": "tsc",
     "postinstall": "tsc"
   }
 }
