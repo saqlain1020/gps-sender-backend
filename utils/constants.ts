@@ -1,0 +1,1 @@
+export const LOCATION_UPDATE_RATE_SECONDS = Number(process.env.LOCATION_UPDATE_RATE_SECONDS);

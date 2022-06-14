@@ -5,6 +5,7 @@ import helmet from "helmet"; //Protects from various attacks eg xss etc
 import cors from "cors";
 import morgan from "morgan";
 import busRouter from "./routes/busRouter";
+import locationRouter from "./routes/locationRouter";
 
 const limiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1hr
@@ -31,6 +32,7 @@ app.use(morgan("dev"));
 
 //routers
 app.use("/api/v1/bus", busRouter);
+app.use("/api/v1/location", locationRouter);
 // app.use("/api/v1/auth", authRouter);
 // app.use("/api/v1/profile", profileRouter);
 // app.use("/api/v1/link", linkRouter);
