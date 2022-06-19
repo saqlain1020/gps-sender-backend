@@ -1,7 +1,6 @@
 import { FilterQuery, Query } from "mongoose";
 import { QueryObj } from "../types";
 
-
 class APIFeatures {
   query: Query<any, any, any>;
   queryObj: QueryObj;
@@ -39,7 +38,7 @@ class APIFeatures {
   }
   paginate() {
     var page = parseInt(this.queryObj?.page!) || 1;
-    var limit = parseInt(this.queryObj?.limit!) || 9;
+    var limit = parseInt(this.queryObj?.limit!) || 10;
     var skip = (page - 1) * limit;
     this.query = this.query.skip(skip).limit(limit);
     return this;
