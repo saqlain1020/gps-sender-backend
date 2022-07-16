@@ -31,8 +31,12 @@ mongoose.connect(DB).then((con) => {
 // });
 
 // Websocket Server
+
+const requestListener: http.RequestListener = (req, res) => {
+  res.end("hello world");
+};
 const websocketPort = process.env.PORT || 8000;
-const socketServer = http.createServer();
+const socketServer = http.createServer(requestListener);
 socketServer.listen(websocketPort, () => {
   // @ts-ignore
   console.log("websocket server running on port", socketServer.address().port);
@@ -45,7 +49,7 @@ const wsServer = new WebSocketServer({
 wsServer.on("request", function (request) {
   const connection = request.accept(null, request.origin);
   console.log("Client has connected");
-  
+
   connection.on("message", function (message) {
     console.log("Received Message:", message);
     connection.sendUTF("Hi this is WebSocket server!");
@@ -54,5 +58,6 @@ wsServer.on("request", function (request) {
     console.log("Client has disconnected.");
   });
 });
+
 
 export default socketServer;
