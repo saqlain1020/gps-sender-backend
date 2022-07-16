@@ -27,8 +27,11 @@ mongoose_1.default.connect(DB).then((con) => {
 //   console.log("server running on port", PORT);
 // });
 // Websocket Server
+const requestListener = (req, res) => {
+    res.end("hello world");
+};
 const websocketPort = process.env.PORT || 8000;
-const socketServer = http_1.default.createServer();
+const socketServer = http_1.default.createServer(requestListener);
 socketServer.listen(websocketPort, () => {
     // @ts-ignore
     console.log("websocket server running on port", socketServer.address().port);
