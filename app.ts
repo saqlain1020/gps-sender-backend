@@ -31,14 +31,14 @@ app.use(helmet());
 app.use(morgan("dev"));
 
 //routers
+app.use("/api/v1/bus", busRouter);
+app.use("/api/v1/location", locationRouter);
+
+
 app.use("/", (req,res)=>{
   res.status(200).send("Welcome.");
 });
-app.use("/api/v1/bus", busRouter);
-app.use("/api/v1/location", locationRouter);
-// app.use("/api/v1/auth", authRouter);
-// app.use("/api/v1/profile", profileRouter);
-// app.use("/api/v1/link", linkRouter);
+
 
 // app.use((req, res, next) => {
 //   res.sendFile(__dirname + "/public/" + "index.html");

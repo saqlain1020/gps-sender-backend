@@ -29,14 +29,11 @@ app.use((0, express_mongo_sanitize_1.default)());
 app.use((0, helmet_1.default)());
 app.use((0, morgan_1.default)("dev"));
 //routers
+app.use("/api/v1/bus", busRouter_1.default);
+app.use("/api/v1/location", locationRouter_1.default);
 app.use("/", (req, res) => {
     res.status(200).send("Welcome.");
 });
-app.use("/api/v1/bus", busRouter_1.default);
-app.use("/api/v1/location", locationRouter_1.default);
-// app.use("/api/v1/auth", authRouter);
-// app.use("/api/v1/profile", profileRouter);
-// app.use("/api/v1/link", linkRouter);
 // app.use((req, res, next) => {
 //   res.sendFile(__dirname + "/public/" + "index.html");
 // });
