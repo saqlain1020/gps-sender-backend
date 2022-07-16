@@ -4,7 +4,6 @@ import app from "./app";
 import mongoose from "mongoose";
 import http from "http";
 import { Server } from "socket.io";
-import listener from "./socket/listener";
 import { server as WebSocketServer } from "websocket";
 
 const MONGO_PASSWORD = process.env.MONGO_PASSWORD || "";
@@ -17,22 +16,22 @@ mongoose.connect(DB).then((con) => {
   console.log("connected to mogndodb");
 });
 
-const server = http.createServer(app);
-export const io = new Server(server, {
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST"],
-  },
-});
+// const server = http.createServer(app);
+// export const io = new Server(server, {
+//   cors: {
+//     origin: "*",
+//     methods: ["GET", "POST"],
+//   },
+// });
 
-io.on("connection", listener);
+// io.on("connection", listener);
 
-server.listen(PORT, () => {
-  console.log("server running on port", PORT);
-});
+// server.listen(PORT, () => {
+//   console.log("server running on port", PORT);
+// });
 
 // Websocket Server
-const websocketPort = process.env.SOCKET_SERVER_PORT || 9898;
+const websocketPort = process.env.PORT || 8000;
 const socketServer = http.createServer();
 socketServer.listen(websocketPort, () => {
   // @ts-ignore
@@ -55,4 +54,5 @@ wsServer.on("request", function (request) {
     console.log("Client has disconnected.");
   });
 });
-export default server;
+
+export default socketServer;
