@@ -33,13 +33,14 @@ mongoose.connect(DB).then((con) => {
 // Websocket Server
 
 const requestListener: http.RequestListener = (req, res) => {
+  
   res.end("hello world");
 };
 const websocketPort = process.env.PORT || 8000;
 const socketServer = http.createServer(requestListener);
 socketServer.listen(websocketPort, () => {
   // @ts-ignore
-  console.log("websocket server running on port", socketServer.address().port);
+  console.log("websocket server running on port", socketServer.address());
 });
 
 const wsServer = new WebSocketServer({
