@@ -33,7 +33,13 @@ mongoose.connect(DB).then((con) => {
 // Websocket Server
 
 const requestListener: http.RequestListener = (req, res) => {
-  
+  console.log("method",req.method);
+  // get body of request
+  req.on('data', chunk => {
+    console.log(`Data: ${chunk}`);
+  });
+
+
   res.end("hello world");
 };
 const websocketPort = process.env.PORT || 8000;
