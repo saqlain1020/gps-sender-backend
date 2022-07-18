@@ -55,6 +55,12 @@ wsServer.on("request", function (request) {
     console.log("Received Message:", message);
     connection.sendUTF("Hi this is WebSocket server!");
   });
+
+  // @ts-ignore
+  connection.on("data", function (message) {
+    console.log("Received Data:", message);
+  });
+
   connection.on("close", function (reasonCode, description) {
     console.log("Client has disconnected.");
   });
