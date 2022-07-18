@@ -6,8 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const mongoose_1 = __importDefault(require("mongoose"));
-const http_1 = __importDefault(require("http"));
-const websocket_1 = require("websocket");
+const net_1 = __importDefault(require("net"));
 const MONGO_PASSWORD = process.env.MONGO_PASSWORD || "";
 const MONGO_STRING = process.env.MONGO_STRING || "";
 const PORT = process.env.PORT || 8000;
@@ -30,34 +29,50 @@ mongoose_1.default.connect(DB).then((con) => {
 const requestListener = (req, res) => {
     console.log("method", req.method);
     // get body of request
-    req.on('data', chunk => {
+    req.on("data", (chunk) => {
         console.log(`Data: ${chunk}`);
     });
     res.end("hello world");
 };
-const websocketPort = process.env.PORT || 8000;
-const socketServer = http_1.default.createServer(requestListener);
-socketServer.listen(websocketPort, () => {
-    // @ts-ignore
-    console.log("websocket server running on port", socketServer.address());
+const websocketPort = process.env.PORT || 80;
+const server = net_1.default.createServer();
+server.listen(websocketPort, () => {
+    console.log("TCP Server is running on port " + Object.values(server.address()) + ".");
 });
-const wsServer = new websocket_1.server({
-    httpServer: socketServer,
-});
-wsServer.on("request", function (request) {
-    const connection = request.accept(null, request.origin);
-    console.log("Client has connected");
-    connection.on("message", function (message) {
-        console.log("Received Message:", message);
-        connection.sendUTF("Hi this is WebSocket server!");
+server.on("connection", function (sock) {
+    console.log("CONNECTED: " + sock.remoteAddress + ":" + sock.remotePort);
+    sock.on("data", function (data) {
+        console.log("DATA " + sock.remoteAddress + ": " + data);
+        // Write the data back to all the connected, the client will receive it as data from the server
+        console.log(sock.remoteAddress + ":" + sock.remotePort + " said " + data + "\n");
     });
-    // @ts-ignore
-    connection.on("data", function (message) {
-        console.log("Received Data:", message);
-    });
-    connection.on("close", function (reasonCode, description) {
-        console.log("Client has disconnected.");
+    // Add a 'close' event handler to this instance of socket
+    sock.on("close", function (data) {
+        console.log("CLOSED: " + sock.remoteAddress + " " + sock.remotePort);
     });
 });
-exports.default = socketServer;
+// const socketServer = http.createServer(requestListener);
+// server.listen(websocketPort, () => {
+//   // @ts-ignore
+//   console.log("websocket server running on port", socketServer.address());
+// });
+// const wsServer = new WebSocketServer({
+//   httpServer: socketServer,
+// });
+// wsServer.on("request", function (request) {
+//   const connection = request.accept(null, request.origin);
+//   console.log("Client has connected");
+//   connection.on("message", function (message) {
+//     console.log("Received Message:", message);
+//     connection.sendUTF("Hi this is WebSocket server!");
+//   });
+//   // @ts-ignore
+//   connection.on("data", function (message) {
+//     console.log("Received Data:", message);
+//   });
+//   connection.on("close", function (reasonCode, description) {
+//     console.log("Client has disconnected.");
+//   });
+// });
+exports.default = server;
 //# sourceMappingURL=server.js.map
