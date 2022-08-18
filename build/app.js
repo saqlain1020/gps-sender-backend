@@ -31,6 +31,9 @@ app.use((0, morgan_1.default)("dev"));
 //routers
 app.use("/api/v1/bus", busRouter_1.default);
 app.use("/api/v1/location", locationRouter_1.default);
+app.use("/ping", (req, res) => {
+    res.status(200).json({ status: true });
+});
 app.use("/", (req, res) => {
     res.status(200).send("Welcome.");
 });
@@ -38,8 +41,5 @@ app.use("/", (req, res) => {
 //   res.sendFile(__dirname + "/public/" + "index.html");
 // });
 // module.exports = app;
-app.use("/ping", (req, res) => {
-    res.status(200).json({ status: true });
-});
 exports.default = app;
 //# sourceMappingURL=app.js.map

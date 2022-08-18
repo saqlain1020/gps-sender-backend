@@ -35,6 +35,10 @@ app.use("/api/v1/bus", busRouter);
 app.use("/api/v1/location", locationRouter);
 
 
+app.use("/ping", (req, res) => {
+  res.status(200).json({ status: true });
+});
+
 app.use("/", (req,res)=>{
   res.status(200).send("Welcome.");
 });
@@ -45,9 +49,5 @@ app.use("/", (req,res)=>{
 // });
 
 // module.exports = app;
-
-app.use("/ping", (req, res) => {
-  res.status(200).json({ status: true });
-});
 
 export default app;
