@@ -46,3 +46,25 @@ export const addBus: RequestHandler = async (req, res) => {
     });
   }
 };
+
+export const deleteBus: RequestHandler = async (req, res) => {
+  let { id } = req.body;
+  let bus = await Bus.findByIdAndDelete(id);
+  if (bus)
+    res.status(200).json({
+      status: true,
+      bus,
+    });
+  else
+    res.status(404).json({
+      status: false,
+      error: "Bus not found",
+    });
+  try {
+  } catch (error: any) {
+    res.status(500).json({
+      status: false,
+      error: error?.message,
+    });
+  }
+};
