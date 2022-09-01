@@ -8,13 +8,14 @@ export const getBuses: RequestHandler = async (req, res) => {
     let buses = await new APIFeatures(Bus.find(), req.query).limitFields().get();
     let promises: Promise<any>[] = [];
     // @ts-ignore
-    buses = buses.map((_)=>_.toJSON());
     buses.forEach((item: any) => {
       // @ts-ignore
       promises.push(Location.findOne({ bus: item._id }).sort({ createdAt: -1 }));      
     });
     let ans = await Promise.all(promises);
+    console.log(ans)
     buses = buses.map((item: any, i: number) => {
+      console.log("it",item)
       return {
         ...item,
         location: ans[i].toJSON(),
