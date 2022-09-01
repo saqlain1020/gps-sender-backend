@@ -15,7 +15,7 @@ export const getBuses: RequestHandler = async (req, res) => {
     });
     let ans = await Promise.all(promises);
     buses = buses.map((item: any, i: number) => {
-      let { bus, ...loc } = ans[i];
+      let { bus, ...loc } = ans[i].toJSON();
       return {
         ...item,
         location: loc,
