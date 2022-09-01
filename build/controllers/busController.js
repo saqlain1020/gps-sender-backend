@@ -20,13 +20,15 @@ const getBuses = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let buses = yield new apiFeatures_1.default(Buses_1.default.find(), req.query).limitFields().get();
         let promises = [];
+        // @ts-ignore
+        buses = buses.map((_) => _.toJSON());
         buses.forEach((item) => {
             // @ts-ignore
             promises.push(Location_1.default.findOne({ bus: item._id }).sort({ createdAt: -1 }));
         });
         let ans = yield Promise.all(promises);
         buses = buses.map((item, i) => {
-            return Object.assign(Object.assign({}, item), { location: ans[i] });
+            return Object.assign(Object.assign({}, item), { location: ans[i].toJSON() });
         });
         res.status(200).json({
             status: true,

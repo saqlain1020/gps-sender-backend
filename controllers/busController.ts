@@ -7,15 +7,17 @@ export const getBuses: RequestHandler = async (req, res) => {
   try {
     let buses = await new APIFeatures(Bus.find(), req.query).limitFields().get();
     let promises: Promise<any>[] = [];
+    // @ts-ignore
+    buses = buses.map((_)=>_.toJSON());
     buses.forEach((item: any) => {
       // @ts-ignore
-      promises.push(Location.findOne({ bus: item._id }).sort({ createdAt: -1 }));
+      promises.push(Location.findOne({ bus: item._id }).sort({ createdAt: -1 }));      
     });
     let ans = await Promise.all(promises);
     buses = buses.map((item: any, i: number) => {
       return {
         ...item,
-        location: ans[i],
+        location: ans[i].toJSON(),
       };
     });
     res.status(200).json({
