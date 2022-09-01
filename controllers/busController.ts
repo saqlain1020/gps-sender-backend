@@ -7,6 +7,7 @@ export const getBuses: RequestHandler = async (req, res) => {
   try {
     let buses = await new APIFeatures(Bus.find(), req.query).limitFields().get();
     let promises: Promise<any>[] = [];
+    console.log(buses)
     // @ts-ignore
     buses.forEach((item: any) => {
       // @ts-ignore
