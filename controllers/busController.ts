@@ -13,7 +13,6 @@ export const getBuses: RequestHandler = async (req, res) => {
       promises.push(Location.findOne({ bus: item._id }).sort({ createdAt: -1 }));  
       return item.toJSON();    
     });
-    console.log("after")
     let ans = await Promise.all(promises);
     buses = buses.map((item: any, i: number) => {
       return {
@@ -21,7 +20,6 @@ export const getBuses: RequestHandler = async (req, res) => {
         location: ans[i],
       };
     });
-    console.log(buses)
     res.status(200).json({
       status: true,
       data: buses,
