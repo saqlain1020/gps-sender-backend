@@ -12,12 +12,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addBus = exports.getBusById = exports.getBuses = void 0;
+exports.deleteBus = exports.addBus = exports.getBusById = exports.getBuses = void 0;
 const Buses_1 = __importDefault(require("../models/Buses"));
+const Location_1 = __importDefault(require("../models/Location"));
 const apiFeatures_1 = __importDefault(require("../utils/apiFeatures"));
 const getBuses = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let buses = yield new apiFeatures_1.default(Buses_1.default.find(), req.query).limitFields().get();
+        let promises = [];
+        buses.forEach((item) => {
+            // @ts-ignore
+            promises.push(Location_1.default.findOne({ bus: item._id }).sort({ createdAt: -1 }));
+        });
+        let ans = yield Promise.all(promises);
+        buses = buses.map((item, i) => {
+            return Object.assign(Object.assign({}, item), { location: ans[i] });
+        });
         res.status(200).json({
             status: true,
             data: buses,
@@ -63,4 +73,27 @@ const addBus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.addBus = addBus;
+const deleteBus = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let { id } = req.body;
+    let bus = yield Buses_1.default.findByIdAndDelete(id);
+    if (bus)
+        res.status(200).json({
+            status: true,
+            bus,
+        });
+    else
+        res.status(404).json({
+            status: false,
+            error: "Bus not found",
+        });
+    try {
+    }
+    catch (error) {
+        res.status(500).json({
+            status: false,
+            error: error === null || error === void 0 ? void 0 : error.message,
+        });
+    }
+});
+exports.deleteBus = deleteBus;
 //# sourceMappingURL=busController.js.map
