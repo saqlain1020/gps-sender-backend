@@ -42,14 +42,14 @@ locationSchema.pre(/^find/, function (next) {
   next();
 });
 
-locationSchema.pre("save", async function (next) {
-  const device = await Device.find({ mac: this.mac });
-  // @ts-ignore
-  if (device && device.bus._id === this.bus) {
-    next();
-  }
-  throw new Error("Wrong Mac address for selected bus.");
-});
+// locationSchema.pre("save", async function (next) {
+//   const device = await Device.find({ mac: this.mac });
+//   // @ts-ignore
+//   if (device && device.bus._id === this.bus) {
+//     next();
+//   }
+//   throw new Error("Wrong Mac address for selected bus.");
+// });
 
 const Location = mongoose.model("Location", locationSchema);
 
