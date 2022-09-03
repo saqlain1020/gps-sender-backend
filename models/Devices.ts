@@ -7,7 +7,7 @@ const deviceSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    busId: {
+    bus: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: Bus,
       required: true,
@@ -25,5 +25,12 @@ const deviceSchema = new mongoose.Schema(
 );
 
 var Device = mongoose.model("Device", deviceSchema);
+
+deviceSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "bus",
+  });
+  next();
+});
 
 export default Device;
