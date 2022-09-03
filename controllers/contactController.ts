@@ -4,7 +4,7 @@ import APIFeatures from "../utils/apiFeatures";
 
 export const getContacts: RequestHandler = async (req, res) => {
   try {
-    let contacts = await new APIFeatures(Contact.find(), req.query).limitFields().sort().get();
+    let contacts = await new APIFeatures(Contact.find(), req.query).limitFields().sort().paginate().get();
     res.status(200).json({
       status: true,
       data: contacts,
