@@ -19,6 +19,9 @@ const locationSchema = new mongoose.Schema(
     senderIp: {
       type: String,
     },
+    mac: {
+      type: String,
+    },
   },
   {
     timestamps: true,
