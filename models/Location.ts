@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Bus from "./Buses";
+import Device from "./Devices";
 
 const locationSchema = new mongoose.Schema(
   {
@@ -39,6 +40,15 @@ locationSchema.pre(/^find/, function (next) {
     path: "bus",
   });
   next();
+});
+
+locationSchema.pre("save", function (next) {
+  const device = Device.find({ mac: this.mac });
+  // @ts-ignore
+  if (device && device.bus._id === this.bus) {
+    next();
+  }
+  throw new Error("Wrong Mac address for selected bus.");
 });
 
 const Location = mongoose.model("Location", locationSchema);
