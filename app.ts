@@ -7,6 +7,7 @@ import morgan from "morgan";
 import busRouter from "./routes/busRouter";
 import locationRouter from "./routes/locationRouter";
 import deviceRouter from "./routes/devicesRouter";
+import contactRouter from "./routes/contactRouter";
 
 const limiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1hr
@@ -35,6 +36,7 @@ app.use(morgan("dev"));
 app.use("/api/v1/bus", busRouter);
 app.use("/api/v1/location", locationRouter);
 app.use("/api/v1/device", deviceRouter);
+app.use("/api/v1/contact", contactRouter);
 
 
 app.use("/ping", (req, res) => {
