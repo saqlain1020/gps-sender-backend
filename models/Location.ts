@@ -42,8 +42,8 @@ locationSchema.pre(/^find/, function (next) {
   next();
 });
 
-locationSchema.pre("save", function (next) {
-  const device = Device.find({ mac: this.mac });
+locationSchema.pre("save", async function (next) {
+  const device = await Device.find({ mac: this.mac });
   // @ts-ignore
   if (device && device.bus._id === this.bus) {
     next();
