@@ -27,6 +27,7 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(limiter);
 
 app.use(express.json());
+app.use(express.static('public'))
 
 app.use(mongoSanitize());
 app.use(helmet());
