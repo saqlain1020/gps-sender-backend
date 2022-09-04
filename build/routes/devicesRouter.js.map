@@ -1,1 +1,0 @@
-{"version":3,"file":"devicesRouter.js","sourceRoot":"","sources":["../../routes/devicesRouter.ts"],"names":[],"mappings":";;AAAA,qCAAiC;AACjC,sEAAsF;AAEtF,MAAM,YAAY,GAAG,IAAA,gBAAM,GAAE,CAAC;AAE9B,YAAY,CAAC,GAAG,CAAC,GAAG,EAAE,6BAAU,CAAC,CAAC;AAClC,YAAY,CAAC,IAAI,CAAC,GAAG,EAAE,4BAAS,CAAC,CAAC;AAClC,YAAY,CAAC,MAAM,CAAC,GAAG,EAAE,+BAAY,CAAC,CAAC;AAEvC,kBAAe,YAAY,CAAC"}
