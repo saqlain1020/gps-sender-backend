@@ -27,7 +27,7 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(limiter);
 
 app.use(express.json());
-app.use(express.static('/public'))
+app.use(express.static("public"));
 
 app.use(mongoSanitize());
 app.use(helmet());
@@ -38,16 +38,20 @@ app.use("/api/v1/bus", busRouter);
 app.use("/api/v1/location", locationRouter);
 app.use("/api/v1/device", deviceRouter);
 app.use("/api/v1/contact", contactRouter);
-
+app.use("/.well-known/pki-validation/A037A05FAE0C5D9CEF9BD7808220CCF0.txt", (req, res) => {
+  res.status(200).send(`
+  D22244EF482F502CC00B7A02746D0CAB86507ABEA1CF2D6AE73572DB9399E5FA<br/>
+comodoca.com<br/>
+80d0ce5d92b7c8b`);
+});
 
 app.use("/ping", (req, res) => {
   res.status(200).json({ status: true });
 });
 
-app.use("/", (req,res)=>{
+app.use("/", (req, res) => {
   res.status(200).send("Welcome.");
 });
-
 
 // app.use((req, res, next) => {
 //   res.sendFile(__dirname + "/public/" + "index.html");
