@@ -15,11 +15,14 @@ export const getBuses: RequestHandler = async (req, res) => {
     });
     let ans = await Promise.all(promises);
     buses = buses.map((item: any, i: number) => {
-      let { bus, ...loc } = ans[i].toJSON();
-      return {
-        ...item,
-        location: loc,
-      };
+      if (ans[i]) {
+        let { bus, ...loc } = ans[i].toJSON();
+        return {
+          ...item,
+          location: loc,
+        };
+      }
+      return item;
     });
     res.status(200).json({
       status: true,
