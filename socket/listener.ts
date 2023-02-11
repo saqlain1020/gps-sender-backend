@@ -35,6 +35,7 @@ let locationListener = Location.watch();
 // io.emit("message",change.fullDocument)
 
 locationListener.on("change",(change)=>{
+  // @ts-ignore
   io.emit("busLocation",change.fullDocument)
 })
 
