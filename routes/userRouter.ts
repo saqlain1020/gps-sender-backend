@@ -5,8 +5,8 @@ import { body, validationResult } from "express-validator";
 const userRouter = Router();
 
 userRouter.get("/", protect, getUser);
-userRouter.post("/signup", body("email").isEmail(), signup);
-userRouter.post("/login", body("email").isEmail(), login);
+userRouter.post("/signup", body("email").exists(), body("email").isEmail(), signup);
+userRouter.post("/login", body("email").exists(), body("email").isEmail(), login);
 userRouter.get("/check-username", checkUsernameExist);
 
 export default userRouter;
