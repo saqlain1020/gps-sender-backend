@@ -48,20 +48,20 @@ export const signup: RequestHandler = async (req, res) => {
 
 export const login: RequestHandler = async (req, res) => {
   try {
-    var { username, password } = req.body;
+    var { email, password } = req.body;
     //check if user & email exits
-    if (!username) throw new Error("Username is required");
+    if (!email) throw new Error("Email is required");
     if (!password) throw new Error("Password is required");
     //fetch user whose email is given
-    var user = await User.findOne({ username: username.toLowerCase() }).select("+password");
+    var user = await User.findOne({ email: email.toLowerCase() }).select("+password");
     if (!user) {
-      throw new Error("Incorrect username or password");
+      throw new Error("Incorrect email or password");
     }
     //verify password
     //enceptyed ps === password
     var passwordVerified = await user.passwordVerification(password, user.password);
     if (!passwordVerified || !user) {
-      throw new Error("Incorrect username or password");
+      throw new Error("Incorrect email or password");
     }
 
     // bson to json
