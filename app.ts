@@ -8,6 +8,7 @@ import busRouter from "./routes/busRouter";
 import locationRouter from "./routes/locationRouter";
 import deviceRouter from "./routes/devicesRouter";
 import contactRouter from "./routes/contactRouter";
+import userRouter from "./routes/userRouter";
 
 const limiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1hr
@@ -38,6 +39,7 @@ app.use("/api/v1/bus", busRouter);
 app.use("/api/v1/location", locationRouter);
 app.use("/api/v1/device", deviceRouter);
 app.use("/api/v1/contact", contactRouter);
+app.use("/api/v1/user", userRouter);
 app.use("/ping", (req, res) => {
   res.status(200).json({ status: true });
 });

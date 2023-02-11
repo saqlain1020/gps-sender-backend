@@ -6,10 +6,9 @@ import http from "http";
 import { Server } from "socket.io";
 import listener from "./socket/listener";
 import { server as WebSocketServer } from "websocket";
+import { MONGO_PASSWORD, MONGO_STRING, PORT as ENVPORT, SOCKET_SERVER_PORT } from "./utils/constants";
 
-const MONGO_PASSWORD = process.env.MONGO_PASSWORD || "";
-const MONGO_STRING = process.env.MONGO_STRING || "";
-const PORT = process.env.PORT || 8000;
+const PORT = ENVPORT || 8000;
 
 const DB = MONGO_STRING.replace("<password>", MONGO_PASSWORD);
 
@@ -32,7 +31,7 @@ server.listen(PORT, () => {
 });
 
 // Websocket Server
-const websocketPort = process.env.SOCKET_SERVER_PORT || 9898;
+const websocketPort = SOCKET_SERVER_PORT || 9898;
 const socketServer = http.createServer();
 socketServer.listen(websocketPort, () => {
   // @ts-ignore
