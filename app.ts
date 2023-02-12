@@ -9,6 +9,8 @@ import locationRouter from "./routes/locationRouter";
 import deviceRouter from "./routes/devicesRouter";
 import contactRouter from "./routes/contactRouter";
 import userRouter from "./routes/userRouter";
+import productRouter from "./routes/productRoute";
+import orderRouter from "./routes/orderRouter";
 
 const limiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1hr
@@ -38,6 +40,8 @@ app.use(morgan("dev"));
 app.use("/api/v1/bus", busRouter);
 app.use("/api/v1/location", locationRouter);
 app.use("/api/v1/device", deviceRouter);
+app.use("/api/v1/product", productRouter);
+app.use("/api/v1/order", orderRouter);
 app.use("/api/v1/contact", contactRouter);
 app.use("/api/v1/user", userRouter);
 app.use("/ping", (req, res) => {

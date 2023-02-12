@@ -28,6 +28,10 @@ const userSchema = new mongoose.Schema<IUser, any, IUser>(
     passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetTokenExpiresAt: Date,
+    subscribedTill: {
+      type: Date,
+      default: Date.now,
+    },
   },
   {
     timestamps: true,

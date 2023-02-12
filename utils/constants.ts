@@ -7,3 +7,4 @@ export const MONGO_STRING = process.env.MONGO_STRING as string;
 export const PORT = process.env.PORT as string;
 export const SOCKET_SERVER_PORT = process.env.SOCKET_SERVER_PORT as string;
 export const COOKIE_EXPIRES_IN = process.env.COOKIE_EXPIRES_IN as string;
+export const PAYMOB_API_KEY = process.env.PAYMOB_API_KEY as string;

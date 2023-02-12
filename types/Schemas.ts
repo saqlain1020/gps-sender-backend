@@ -11,4 +11,5 @@ export interface User extends Document {
   passwordResetTokenGenerator: () => string;
   createdAt: Date;
   updatedAt: Date;
+  subscribedTill:Date
 }
