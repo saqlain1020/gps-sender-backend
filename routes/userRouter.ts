@@ -24,7 +24,7 @@ userRouter.post(
   validationMiddleware,
   login
 );
-userRouter.get("/:userid", getUserById);
+userRouter.get("/:userId", getUserById);
 userRouter.get("/check-username", checkUsernameExist);
 
 export default userRouter;

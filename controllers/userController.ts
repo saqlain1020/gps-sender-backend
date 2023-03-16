@@ -144,7 +144,7 @@ export const getUserById: RequestHandler = async (req: Request, res) => {
   try {
     // get params
     let { userId } = req.params;
-    const user = await User.findById(userId)
+    const user = await User.findById(userId)    
     if (!user) throw new Error("User not found");
     res.status(200).json(user.toJSON());
   } catch (error: any) {
