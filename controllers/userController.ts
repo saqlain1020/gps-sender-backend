@@ -140,6 +140,21 @@ export const getUser: RequestHandler = async (req: Request, res) => {
   }
 };
 
+export const getUserById: RequestHandler = async (req: Request, res) => {
+  try {
+    // get params
+    let { userId } = req.params;
+    const user = await User.findById(userId)
+    if (!user) throw new Error("User not found");
+    res.status(200).json(user.toJSON());
+  } catch (error: any) {
+    res.status(500).json({
+      status: false,
+      error: error.message,
+    });
+  }
+};
+
 export const checkUsernameExist: RequestHandler = async (req, res) => {
   try {
     // @ts-ignore

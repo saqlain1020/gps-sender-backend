@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { checkUsernameExist, getUser, login, protect, signup } from "../controllers/userController";
+import { checkUsernameExist, getUser, getUserById, login, protect, signup } from "../controllers/userController";
 import { check } from "express-validator";
 import { validationMiddleware } from "../libs/middlewares";
 
@@ -24,6 +24,7 @@ userRouter.post(
   validationMiddleware,
   login
 );
+userRouter.get("/:userid", getUserById);
 userRouter.get("/check-username", checkUsernameExist);
 
 export default userRouter;
