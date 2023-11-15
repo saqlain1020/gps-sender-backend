@@ -45,5 +45,6 @@
     "start": "node ./build/server.js",
     "build": "tsc && npm run copypublic",
     "copypublic": "npx copyfiles --error -up 1 public/*.* build"
-  }
+  },
+  "packageManager": "yarn@4.0.2"
 }
